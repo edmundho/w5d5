@@ -15,8 +15,8 @@ class Game {
 
     reader.question("select 'from' pile, then 'to' pile: ", function (string) {
       let [startTowerIdx, endTowerIdx] = string.split(",");
-      let u = this.isValidMove(startTowerIdx, endTowerIdx);
-      console.log(u);
+      this.move(startTowerIdx, endTowerIdx);
+      this.towers.forEach((el) => console.log(el));
       callback(startTowerIdx, endTowerIdx);
     }.bind(this));
   }
@@ -33,7 +33,15 @@ class Game {
     }
   }
 
-
+  move(startTowerIdx, endTowerIdx) {
+    if (this.isValidMove(startTowerIdx, endTowerIdx)) {
+      let disc = this.towers[startTowerIdx].shift();
+      this.towers[endTowerIdx].unshift(disc);
+      return true;
+    } else {
+      return false;
+    }
+  }
 }
 
 
