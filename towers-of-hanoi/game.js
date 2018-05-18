@@ -15,9 +15,22 @@ class Game {
 
     reader.question("select 'from' pile, then 'to' pile: ", function (string) {
       let [startTowerIdx, endTowerIdx] = string.split(",");
+      let u = this.isValidMove(startTowerIdx, endTowerIdx);
+      console.log(u);
       callback(startTowerIdx, endTowerIdx);
-    });
+    }.bind(this));
+  }
 
+  isValidMove(startTowerIdx, endTowerIdx) {
+    if (this.towers[startTowerIdx].length === 0) {
+      return false;
+    } else if (this.towers[endTowerIdx].length === 0) {
+      return true;
+    } else if (this.towers[startTowerIdx][0] < this.towers[endTowerIdx][0]) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
 
