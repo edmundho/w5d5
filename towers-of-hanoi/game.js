@@ -16,7 +16,7 @@ class Game {
     reader.question("select 'from' pile, then 'to' pile: ", function (string) {
       let [startTowerIdx, endTowerIdx] = string.split(",");
       this.move(startTowerIdx, endTowerIdx);
-      this.towers.forEach((el) => console.log(el));
+      this.print();
       callback(startTowerIdx, endTowerIdx);
     }.bind(this));
   }
@@ -42,8 +42,23 @@ class Game {
       return false;
     }
   }
+
+  print() {
+    this.towers.forEach((el) => console.log(JSON.stringify(el)));
+  }
+
+  isWon() {
+    if (this.towers[1] === [1, 2, 3] || this.towers[2] === [1, 2, 3]) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 }
 
 
 let game = new Game();
-game.promptMove((x, y) => console.log(x, y));
+// game.promptMove((x, y) => console.log(x, y));
+game.towers = [[], [1, 2, 3], []];
+console.log(game.towers);
+console.log(game.isWon());
